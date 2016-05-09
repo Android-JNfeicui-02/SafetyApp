@@ -1,7 +1,9 @@
 package com.roy.safeyapp.ui;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +21,7 @@ import java.util.ArrayList;
 
 public class SplashActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
 
+    public static final String SPLASH_CONFIG = "splash_config";
     private ViewPager mViewPager;
 
     private ArrayList<View> mList;
@@ -33,10 +36,29 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
 
-        initView();
+        // 判断是否是第一次运行程序
+        SharedPreferences preferences = getSharedPreferences(SPLASH_CONFIG, MODE_PRIVATE);
+        boolean isFirstRun = preferences.getBoolean("isFirstRun", true);
 
+        if (!isFirstRun) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            setContentView(R.layout.activity_splash);
+            initView();
+        }
+
+
+    }
+
+    // 保存第一次运行的SP
+    private void savePreferences() {
+        SharedPreferences preferences = getSharedPreferences(SPLASH_CONFIG, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean("isFirstRun", false);
+        editor.apply();
     }
 
     private void initView() {
@@ -63,8 +85,9 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     // 正在滚动的时候 调用的方法 会反复调用
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        Log.d(TAG, "onPageScrolled: start" + "position:"+position + "  offset"+positionOffset + "" +
-                "  pixels:" + positionOffsetPixels);
+        Log.d(TAG,
+              "onPageScrolled: start" + "position:" + position + "  offset" + positionOffset + "" +
+                      "  pixels:" + positionOffsetPixels);
     }
 
     @Override
@@ -167,6 +190,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     // 按钮的跳转方法
     @Override
     public void onClick(View v) {
+        savePreferences();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
