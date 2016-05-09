@@ -69,6 +69,13 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onPageSelected(int position) {
+
+        if (position == 2) {
+            mBtnSkip.setVisibility(View.VISIBLE);
+        } else {
+            mBtnSkip.setVisibility(View.INVISIBLE);
+        }
+
         Log.d(TAG, "onPageSelected: start,  position:" + position);
     }
 

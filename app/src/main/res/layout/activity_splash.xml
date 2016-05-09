@@ -13,6 +13,7 @@
         />
 
     <Button
+        android:visibility="invisible"
         android:layout_alignParentRight="true"
         android:id="@+id/btn_skip"
         android:text="跳过"
