@@ -22,6 +22,7 @@ import java.util.ArrayList;
 public class SplashActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
 
     public static final String SPLASH_CONFIG = "splash_config";
+    public static final String IS_FIRST_RUN = "isFirstRun";
     private ViewPager mViewPager;
 
     private ArrayList<View> mList;
@@ -39,10 +40,10 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 
         // 判断是否是第一次运行程序
         SharedPreferences preferences = getSharedPreferences(SPLASH_CONFIG, MODE_PRIVATE);
-        boolean isFirstRun = preferences.getBoolean("isFirstRun", true);
+        boolean isFirstRun = preferences.getBoolean(IS_FIRST_RUN, true);
 
         if (!isFirstRun) {
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
             finish();
         } else {
@@ -57,7 +58,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     private void savePreferences() {
         SharedPreferences preferences = getSharedPreferences(SPLASH_CONFIG, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putBoolean("isFirstRun", false);
+        editor.putBoolean(IS_FIRST_RUN, false);
         editor.apply();
     }
 
@@ -85,9 +86,9 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     // 正在滚动的时候 调用的方法 会反复调用
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        Log.d(TAG,
-              "onPageScrolled: start" + "position:" + position + "  offset" + positionOffset + "" +
-                      "  pixels:" + positionOffsetPixels);
+//        Log.d(TAG,
+//              "onPageScrolled: start" + "position:" + position + "  offset" + positionOffset + "" +
+//                      "  pixels:" + positionOffsetPixels);
     }
 
     @Override
@@ -99,13 +100,13 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             mBtnSkip.setVisibility(View.INVISIBLE);
         }
 
-        Log.d(TAG, "onPageSelected: start,  position:" + position);
+        //Log.d(TAG, "onPageSelected: start,  position:" + position);
     }
 
     // 当viewpager在滚动的时候 调用的第一个方法
     @Override
     public void onPageScrollStateChanged(int state) {
-        Log.d(TAG, "onPageScrollStateChanged: start,  state: " + state);
+        //Log.d(TAG, "onPageScrollStateChanged: start,  state: " + state);
     }
 
     // 官方提供的动画1
@@ -191,7 +192,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         savePreferences();
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
         finish();
     }
@@ -216,6 +217,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         // 当不可见时 销毁position
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
+            //Log.d(TAG, "destroyItem: " + position);
             container.removeView(mList.get(position));
         }
 
