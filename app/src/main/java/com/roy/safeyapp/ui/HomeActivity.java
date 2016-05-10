@@ -1,6 +1,7 @@
 package com.roy.safeyapp.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -23,6 +24,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+    
+    public static final int SJFD = 0;
+    public static final int TXWS = 1;
+    public static final int RJGL = 2;
+    public static final int JCGL = 3;
+    public static final int HCQL = 4;
+    public static final int SZZX = 5;
 
     private GridView mGridView;
 
@@ -49,19 +57,19 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         initData();
 
 
-        PackageManager pm = this.getPackageManager();
-        List<PackageInfo> packages = pm.getInstalledPackages(PackageManager.GET_ACTIVITIES);
+        //PackageManager pm = this.getPackageManager();
+        //List<PackageInfo> packages = pm.getInstalledPackages(PackageManager.GET_ACTIVITIES);
         //Log.d(TAG, "PackageManager: " + packages.toString());
 
 
-        for (int i = 0; i < packages.size(); i++) {
-            PackageInfo pi = packages.get(i);
-            if ((pi.applicationInfo.flags & pi.applicationInfo.FLAG_SYSTEM) == 0) {
-                // 与运算出来的结果 如果不等于0 则是 系统内置的程序
-                // 如果等于0, 则是用户安装的程序
-                Log.d(TAG, "PackageInfo``: " + pi);
-            }
-        }
+//        for (int i = 0; i < packages.size(); i++) {
+//            PackageInfo pi = packages.get(i);
+//            if ((pi.applicationInfo.flags & pi.applicationInfo.FLAG_SYSTEM) == 0) {
+//                // 与运算出来的结果 如果不等于0 则是 系统内置的程序
+//                // 如果等于0, 则是用户安装的程序
+//                Log.d(TAG, "PackageInfo``: " + pi);
+//            }
+//        }
 
 
     
@@ -86,10 +94,24 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+        // int String
         switch (position) {
-            case 0:
+            case SJFD:
                 Toast.makeText(HomeActivity.this, "点击了" + position, Toast.LENGTH_SHORT)
                      .show();
+                break;
+
+            case TXWS:
+                Toast.makeText(HomeActivity.this, "点击了" + position, Toast.LENGTH_SHORT)
+                     .show();
+                break;
+
+            case RJGL:
+                Toast.makeText(HomeActivity.this, "点击了" + position, Toast.LENGTH_SHORT)
+                     .show();
+
+                Intent intent = new Intent(this, RjglActivity.class);
+                startActivity(intent);
                 break;
         }
 
