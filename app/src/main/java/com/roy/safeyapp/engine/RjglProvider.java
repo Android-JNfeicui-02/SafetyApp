@@ -40,9 +40,12 @@ public class RjglProvider {
             //拿到应用程序的名称
             String name = info.applicationInfo.loadLabel(pm).toString();
 
+            String packageName = info.applicationInfo.packageName;
+
             AppBean bean = new AppBean();
             bean.name = name;
             bean.icon = icon;
+            bean.packageName = packageName;
 
             mData.add(bean);
         }

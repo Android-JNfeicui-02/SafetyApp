@@ -14,19 +14,30 @@
         />
 
     <LinearLayout
-        android:layout_toRightOf="@id/item_rjgl_iv_icon"
-        android:layout_margin="4dp"
-        android:orientation="vertical"
-        android:layout_centerVertical="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_margin="4dp"
+        android:layout_toRightOf="@id/item_rjgl_iv_icon"
+        android:orientation="vertical">
 
         <TextView
-            android:textColor="#000000"
-            android:text="应用名"
+            android:id="@+id/item_rjgl_tv_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/item_rjgl_tv_name"
+            android:text="应用名"
+            android:textColor="#000000"
+            android:textSize="22sp"
+            />
+
+        <TextView
+            android:textColor="#aa000000"
+            android:id="@+id/item_rjgl_tv_packagename"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="应用包名"
+            android:textSize="18sp"
+
             />
 
     </LinearLayout>

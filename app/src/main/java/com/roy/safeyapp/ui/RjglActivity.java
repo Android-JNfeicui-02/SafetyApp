@@ -42,7 +42,7 @@ public class RjglActivity extends AppCompatActivity {
 //        }
 
         // 调用自己写的方法 拿到需要的数据 赋值给List对象
-        mData  = RjglProvider.getAppInfo(RjglActivity.this);
+        mData = RjglProvider.getAppInfo(RjglActivity.this);
 
         mLvAppList.setAdapter(new RjglAdapter());
 
@@ -83,6 +83,10 @@ public class RjglActivity extends AppCompatActivity {
 
                 holder.ivIcon = (ImageView) convertView.findViewById(R.id.item_rjgl_iv_icon);
                 holder.tvName = (TextView) convertView.findViewById(R.id.item_rjgl_tv_name);
+                holder.tvPackageName = (TextView) convertView.findViewById(
+                        R.id.item_rjgl_tv_packagename);
+
+
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
@@ -91,6 +95,7 @@ public class RjglActivity extends AppCompatActivity {
             AppBean bean = (AppBean) getItem(position);
             holder.ivIcon.setImageDrawable(bean.icon);
             holder.tvName.setText(bean.name);
+            holder.tvPackageName.setText(bean.packageName);
 
             return convertView;
         }
@@ -99,6 +104,7 @@ public class RjglActivity extends AppCompatActivity {
     private class ViewHolder {
         ImageView ivIcon;
         TextView  tvName;
+        TextView  tvPackageName;
     }
 
 
