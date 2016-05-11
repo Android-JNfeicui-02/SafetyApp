@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -18,7 +19,7 @@ import com.roy.safeyapp.engine.RjglProvider;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RjglActivity extends AppCompatActivity {
+public class RjglActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     ListView mLvAppList;
 
@@ -46,10 +47,17 @@ public class RjglActivity extends AppCompatActivity {
 
         mLvAppList.setAdapter(new RjglAdapter());
 
+        mLvAppList.setOnItemClickListener(this);
+
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
     }
 
     private class RjglAdapter extends BaseAdapter {
-
 
         @Override
         public int getCount() {
