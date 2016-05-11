@@ -1,6 +1,8 @@
 package com.roy.safeyapp.ui;
 
+import android.content.Intent;
 import android.content.pm.PackageInfo;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +13,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.roy.safeyapp.R;
 import com.roy.safeyapp.bean.AppBean;
@@ -26,6 +29,7 @@ public class RjglActivity extends AppCompatActivity implements AdapterView.OnIte
     List<AppBean> mData;
 
     private static final String TAG = "RjglActivity";
+    private RjglAdapter mAdapter;
 
 
     @Override
@@ -41,19 +45,37 @@ public class RjglActivity extends AppCompatActivity implements AdapterView.OnIte
 //
 //            mData.add(bean);
 //        }
-
-        // 调用自己写的方法 拿到需要的数据 赋值给List对象
-        mData = RjglProvider.getAppInfo(RjglActivity.this);
-
-        mLvAppList.setAdapter(new RjglAdapter());
+        mAdapter = new RjglAdapter();
 
         mLvAppList.setOnItemClickListener(this);
 
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart: start");
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume: start");
+        mLvAppList.removeAllViewsInLayout();
+
+        // 调用自己写的方法 拿到需要的数据 赋值给List对象
+        mData = RjglProvider.getAppInfo(RjglActivity.this);
+
+        mLvAppList.setAdapter(mAdapter);
+
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        AppBean appBean = mData.get(position);
+        String packageName = appBean.packageName;
+        Intent intent = new Intent(Intent.ACTION_DELETE, Uri.parse("package:" + packageName));
+        startActivity(intent);
 
     }
 
