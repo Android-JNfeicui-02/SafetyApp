@@ -27,6 +27,7 @@ import com.roy.safeyapp.utils.Constants;
 import com.roy.safeyapp.utils.SpUtils;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
@@ -40,10 +41,13 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
 
     private GridView mGridView;
 
+
+
+
     Context mContext;
 
     private ArrayList<HomeBean> mDatas;
-    
+
     private static final String TAG = "HomeActivity";
 
     private String[] desc = {"手机防盗", "通讯卫士",
@@ -125,6 +129,74 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private void clickSJFD() {
+
+        // 取出来password
+        String password = SpUtils.getString(this, Constants.SJFD_PWD);
+        Log.d(TAG, "clickSJFD: " + password);
+
+        // TextUtils.isEmpty
+        if (TextUtils.isEmpty(password)) {
+            showSetupDialog();
+        } else {
+            showEnterDialog();
+        }
+
+
+    }
+
+    private void showEnterDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = View.inflate(this,R.layout.dialog_login,null);
+
+        final EditText etPwd = (EditText) view.findViewById(R.id.et_enter_pwd);
+        Button btnLogin = (Button) view.findViewById(R.id.btn_login);
+        Button btnDismiss = (Button) view.findViewById(R.id.btn_dismiss);
+
+        builder.setView(view);
+        final AlertDialog dialog = builder.show();
+
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String password = etPwd.getText()
+                                   .toString()
+                                   .trim();
+
+                // 非空校验
+                if (TextUtils.isEmpty(password)) {
+                    Toast.makeText(getApplicationContext(), "输入的密码不能为空", Toast.LENGTH_SHORT)
+                         .show();
+                    return;
+                }
+
+
+                String savedPwd = SpUtils.getString(getApplicationContext(), Constants.SJFD_PWD);
+                // 正确校验
+                if (!savedPwd.equals(password)) {
+                    Toast.makeText(getApplicationContext(), "输入密码有误", Toast.LENGTH_SHORT)
+                         .show();
+                    return;
+                }
+
+                dialog.dismiss();
+                Toast.makeText(getApplicationContext(), "登陆成功", Toast.LENGTH_SHORT)
+                     .show();
+
+                Intent intent = new Intent(HomeActivity.this, SjfdSetupActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnDismiss.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+    }
+
+    private void showSetupDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View view = View.inflate(getApplicationContext(), R.layout.dialog_setup, null);
 
@@ -153,13 +225,14 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
                 String pwd = etPwd.getText().toString().trim();
 
                 String confirmPwd = etConfirmPwd.getText()
-                                          .toString()
-                                          .trim();
+                                                .toString()
+                                                .trim();
 
-                // 非空判断
-                if (TextUtils.isEmpty(pwd) || TextUtils.isEmpty(confirmPwd)) {
+                // 非空判断TextUtils.isEmpty(pwd) || TextUtils.isEmpty(confirmPwd
+                if (pwd.isEmpty() || confirmPwd.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "密码不能为空", Toast.LENGTH_SHORT)
                          .show();
+
                     return;
                 }
 
@@ -172,16 +245,13 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
 
                 // 保存edittext里面的内容
                 SpUtils.putString(getApplicationContext(), Constants.SJFD_PWD,pwd);
+                Toast.makeText(HomeActivity.this, "密码保存成功", Toast.LENGTH_SHORT)
+                     .show();
 
                 dialog.dismiss();
             }
 
         });
-
-
-
-
-
     }
 
     private class HomeAdapter extends BaseAdapter {
