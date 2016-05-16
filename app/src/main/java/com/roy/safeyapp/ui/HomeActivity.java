@@ -5,13 +5,17 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,6 +23,8 @@ import android.widget.Toast;
 
 import com.roy.safeyapp.R;
 import com.roy.safeyapp.bean.HomeBean;
+import com.roy.safeyapp.utils.Constants;
+import com.roy.safeyapp.utils.SpUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +78,6 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
 //        }
 
 
-    
         mGridView = (GridView) findViewById(R.id.gv_home);
         mGridView.setAdapter(new HomeAdapter());
 
@@ -97,8 +102,10 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         // int String
         switch (position) {
             case SJFD:
-                Toast.makeText(HomeActivity.this, "点击了" + position, Toast.LENGTH_SHORT)
-                     .show();
+                clickSJFD();
+
+//                Toast.makeText(HomeActivity.this, "点击了" + position, Toast.LENGTH_SHORT)
+//                     .show();
                 break;
 
             case TXWS:
@@ -114,6 +121,66 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
                 startActivity(intent);
                 break;
         }
+
+    }
+
+    private void clickSJFD() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = View.inflate(getApplicationContext(), R.layout.dialog_setup, null);
+
+        final EditText etPwd = (EditText) view.findViewById(R.id.et_pwd1);
+        final EditText etConfirmPwd = (EditText) view.findViewById(R.id.et_pwd2);
+
+        Button btnSubmit = (Button) view.findViewById(R.id.btn_submit);
+        Button btnCancel = (Button) view.findViewById(R.id.btn_cancel);
+
+
+        builder.setView(view);
+        final AlertDialog dialog = builder.show();
+
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 点击以后要校验文本框的内容
+
+                String pwd = etPwd.getText().toString().trim();
+
+                String confirmPwd = etConfirmPwd.getText()
+                                          .toString()
+                                          .trim();
+
+                // 非空判断
+                if (TextUtils.isEmpty(pwd) || TextUtils.isEmpty(confirmPwd)) {
+                    Toast.makeText(getApplicationContext(), "密码不能为空", Toast.LENGTH_SHORT)
+                         .show();
+                    return;
+                }
+
+                // 相等判断
+                if (!pwd.equals(confirmPwd)) {
+                    Toast.makeText(getApplicationContext(), "密码不相等", Toast.LENGTH_SHORT)
+                         .show();
+                    return;
+                }
+
+                // 保存edittext里面的内容
+                SpUtils.putString(getApplicationContext(), Constants.SJFD_PWD,pwd);
+
+                dialog.dismiss();
+            }
+
+        });
+
+
+
+
 
     }
 
@@ -145,7 +212,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         public View getView(int position, View convertView, ViewGroup parent) {
 
             if (convertView == null) {
-                convertView = View.inflate(HomeActivity.this,R.layout.item_grid_list,null);
+                convertView = View.inflate(HomeActivity.this, R.layout.item_grid_list, null);
             }
             ImageView ivIcons = (ImageView) convertView.findViewById(R.id.item_iv_pic);
             TextView tvDesc = (TextView) convertView.findViewById(R.id.item_tv_desc);
