@@ -67,20 +67,6 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         initData();
 
 
-        //PackageManager pm = this.getPackageManager();
-        //List<PackageInfo> packages = pm.getInstalledPackages(PackageManager.GET_ACTIVITIES);
-        //Log.d(TAG, "PackageManager: " + packages.toString());
-
-
-//        for (int i = 0; i < packages.size(); i++) {
-//            PackageInfo pi = packages.get(i);
-//            if ((pi.applicationInfo.flags & pi.applicationInfo.FLAG_SYSTEM) == 0) {
-//                // 与运算出来的结果 如果不等于0 则是 系统内置的程序
-//                // 如果等于0, 则是用户安装的程序
-//                Log.d(TAG, "PackageInfo``: " + pi);
-//            }
-//        }
-
 
         mGridView = (GridView) findViewById(R.id.gv_home);
         mGridView.setAdapter(new HomeAdapter());
