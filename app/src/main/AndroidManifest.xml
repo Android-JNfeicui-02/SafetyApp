@@ -19,7 +19,13 @@
         </activity>
         <activity android:name=".ui.RjglActivity">
         </activity>
-        <activity android:name=".ui.SjfdSetupActivity">
+        <activity android:name=".ui.SjfdSetup1Activity">
+        </activity>
+        <activity android:name=".ui.SjfdSetup2Activity">
+        </activity>
+        <activity android:name=".ui.SjfdSetup3Activity">
+        </activity>
+        <activity android:name=".ui.SjfdSetup4Activity">
         </activity>
     </application>
 

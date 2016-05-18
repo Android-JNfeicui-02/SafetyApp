@@ -2,9 +2,6 @@ package com.roy.safeyapp.ui;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,8 +24,6 @@ import com.roy.safeyapp.utils.Constants;
 import com.roy.safeyapp.utils.SpUtils;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 public class HomeActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     
@@ -169,7 +164,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
                 Toast.makeText(getApplicationContext(), "登陆成功", Toast.LENGTH_SHORT)
                      .show();
 
-                Intent intent = new Intent(HomeActivity.this, SjfdSetupActivity.class);
+                Intent intent = new Intent(HomeActivity.this, SjfdSetup1Activity.class);
                 startActivity(intent);
             }
         });
@@ -182,6 +177,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         });
     }
 
+    // 初始化密码
     private void showSetupDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View view = View.inflate(getApplicationContext(), R.layout.dialog_setup, null);
@@ -235,6 +231,11 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
                      .show();
 
                 dialog.dismiss();
+
+
+                // 设置完密码以后， 进入防盗设置
+                Intent intent = new Intent(HomeActivity.this, SjfdSetup1Activity.class);
+                startActivity(intent);
             }
 
         });

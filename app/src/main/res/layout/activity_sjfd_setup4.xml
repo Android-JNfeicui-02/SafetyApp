@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.roy.safeyapp.ui.SjfdSetup2Activity">
+
+    <TextView
+        style="@style/TextBarStyle"
+        android:text="手机防盗设置界面4"
+        />
+
+    <CheckBox
+        android:layout_margin="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="点击勾选开启防盗功能"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="防盗功能是否开启:"
+        android:textSize="26sp"
+        android:gravity="center_vertical"
+        android:drawableRight="@mipmap/ic_unlock"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:onClick="prev"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="4dp"
+            android:text="上一步"
+            />
+
+        <Button
+            android:onClick="next"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="4dp"
+            android:text="下一步"
+            />
+    </RelativeLayout>
+</LinearLayout>
