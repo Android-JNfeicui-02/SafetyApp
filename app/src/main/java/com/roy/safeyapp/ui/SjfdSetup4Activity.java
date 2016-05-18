@@ -15,6 +15,11 @@ public class SjfdSetup4Activity extends BaseSetupActivity {
     }
 
     @Override
+    protected void initView() {
+
+    }
+
+    @Override
     protected void nextActivity() {
         Toast.makeText(SjfdSetup4Activity.this, "设置完毕", Toast.LENGTH_SHORT)
              .show();

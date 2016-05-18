@@ -14,8 +14,25 @@ public abstract class BaseSetupActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        initView();
+
+        // 初始化数据
+        initData();
+        // 初始化事件
+        initEvent();
+    }
+
+    public void initEvent() {
 
     }
+
+    // 有的界面不需要 就不是abstract
+    public void initData() {
+
+    }
+
+    protected abstract void initView();
+
 
     // 抽取的按钮点击事件
     public void next(View view) {

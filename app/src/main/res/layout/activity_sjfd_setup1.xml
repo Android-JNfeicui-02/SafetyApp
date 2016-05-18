@@ -52,6 +52,12 @@
         android:text="播放报警声音"
         />
 
+    <ImageView
+        android:layout_gravity="center"
+        android:src="@mipmap/ic_unlock"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

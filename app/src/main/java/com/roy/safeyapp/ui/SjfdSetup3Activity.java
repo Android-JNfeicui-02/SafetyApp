@@ -14,6 +14,11 @@ public class SjfdSetup3Activity extends BaseSetupActivity {
     }
 
     @Override
+    protected void initView() {
+
+    }
+
+    @Override
     protected void nextActivity() {
         start(SjfdSetup4Activity.class);
     }

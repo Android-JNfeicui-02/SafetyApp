@@ -7,4 +7,5 @@ package com.roy.safeyapp.utils;
 public interface Constants {
 
     String SJFD_PWD = "jsfd_pwd";
+    String SIM = "sim";
 }
